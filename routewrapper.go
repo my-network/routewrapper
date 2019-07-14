@@ -40,6 +40,7 @@ type Routing interface {
 	Routes() ([]Route, error)
 	DefaultRoutes() ([]Route, error)
 	AddRoute(Route) error
+	RemoveRoute(Route) error
 	GetInterface(name string) (*net.Interface, error)
 }
 

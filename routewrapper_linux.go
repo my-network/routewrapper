@@ -217,8 +217,16 @@ func (wrapper *LinuxRouteWrapper) DefaultRoutes() ([]Route, error) {
 }
 
 func (wrapper *LinuxRouteWrapper) AddRoute(route Route) error {
+	return wrapper.routeAction("add", route)
+}
+
+func (wrapper *LinuxRouteWrapper) RemoveRoute(route Route) error {
+	return wrapper.routeAction("del", route)
+}
+
+func (wrapper *LinuxRouteWrapper) routeAction(actionName string, route Route) error {
 	cmd := wrapper.ipCommand.Clone()
-	cmd.Args = append(cmd.Args, "add")
+	cmd.Args = append(cmd.Args, actionName)
 	cmd.Args = append(cmd.Args, "to")
 	if route.Destination.Mask == nil {
 		cmd.Args = append(cmd.Args, route.Destination.IP.String())
