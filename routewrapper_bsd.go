@@ -268,7 +268,15 @@ func (wrapper *BSDRouteWrapper) DefaultRoutes() ([]Route, error) {
 }
 
 func (wrapper *BSDRouteWrapper) AddRoute(route Route) error {
-	args := []string{"add"}
+	return wrapper.routeAction("add", route)
+}
+
+func (wrapper *BSDRouteWrapper) RemoveRoute(route Route) error {
+	return wrapper.routeAction("delete", route)
+}
+
+func (wrapper *BSDRouteWrapper) routeAction(actionName string, route Route) error {
+	args := []string{actionName}
 	destinationIsNetwork := route.DestinationIsNetwork()
 	if destinationIsNetwork {
 		args = append(args, "-net")

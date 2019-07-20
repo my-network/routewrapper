@@ -570,7 +570,15 @@ func (wrapper *WindowsRouteWrapper) DefaultRoutes() ([]Route, error) {
 }
 
 func (wrapper *WindowsRouteWrapper) AddRoute(route Route) error {
-	args := []string{"ADD"}
+	return wrapper.routeAction("ADD", route)
+}
+
+func (wrapper *WindowsRouteWrapper) RemoveRoute(route Route) error {
+	return wrapper.routeAction("DELETE", route)
+}
+
+func (wrapper *WindowsRouteWrapper) routeAction(actionName string, route Route) error {
+	args := []string{actionName}
 	args = append(args, route.Destination.IP.String())
 	if route.Destination.Mask != nil {
 		args = append(args, "MASK")
