@@ -2,9 +2,10 @@ package main
 
 import (
 	"fmt"
-	"github.com/moriyoshi/routewrapper"
 	"net"
 	"os"
+
+	"github.com/moriyoshi/routewrapper"
 )
 
 var progname = os.Args[0]
